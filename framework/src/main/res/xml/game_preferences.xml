@@ -16,16 +16,9 @@
             android:key="game_pref_zapper"
             android:title="@string/game_pref_zapper" />
 
-        <Preference android:title="@string/general_pref">
-            <intent android:action="@string/action_general_pref">
-                <extra
-                    android:name=":android:no_headers"
-                    android:value="true" />
-                <extra
-                    android:name=":android:show_fragment"
-                    android:value="nostalgia.framework.ui.preferences.GeneralPreferenceFragment" />
-            </intent>
-        </Preference>
+        <Preference
+            android:key="game_pref_general_settings"
+            android:title="@string/general_pref" />
 
 
     </PreferenceCategory>

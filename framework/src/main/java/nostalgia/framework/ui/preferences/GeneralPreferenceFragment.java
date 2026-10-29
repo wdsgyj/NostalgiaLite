@@ -1,6 +1,7 @@
 package nostalgia.framework.ui.preferences;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.CheckBoxPreference;
@@ -46,8 +47,11 @@ public class GeneralPreferenceFragment extends PreferenceFragment {
         GeneralPreferenceActivity.initProPreference(opacity, getActivity());
         CheckBoxPreference ddpad = (CheckBoxPreference) findPreference("general_pref_ddpad");
         GeneralPreferenceActivity.initDDPAD(ddpad, getActivity());
+        // Internal activities are not exported; use explicit intents on Android 14+.
+        Preference touch = findPreference("general_pref_touch_layout");
+        touch.setIntent(new Intent(getActivity(), TouchControllerSettingsActivity.class));
         Preference screen = findPreference("general_pref_screen_layout");
-        GeneralPreferenceActivity.initScreenSettings(screen, getActivity());
+        screen.setIntent(new Intent(getActivity(), ScreenViewPortSettingsActivity.class));
         CheckBoxPreference ff = (CheckBoxPreference) findPreference("general_pref_fastforward");
         GeneralPreferenceActivity.initFastForward(ff, getActivity());
         PreferenceCategory keyCat = (PreferenceCategory) findPreference("pref_keyboard_cat");

@@ -39,19 +39,11 @@
         <Preference
             android:key="general_pref_touch_layout"
             android:summary="@string/pref_touch_desc"
-            android:title="@string/pref_touch_settings">
-            <intent
-                android:action="@string/action_touch_pref"
-                android:key="void" />
-        </Preference>
+            android:title="@string/pref_touch_settings" />
         <Preference
             android:key="general_pref_screen_layout"
             android:summary="@string/pref_screen_desc"
-            android:title="@string/pref_screen_settings">
-            <intent
-                android:action="@string/action_screen_pref"
-                android:key="void" />
-        </Preference>
+            android:title="@string/pref_screen_settings" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_setting_display">
@@ -162,11 +154,7 @@
 
         <Preference
             android:key="pref_game_keyboard_edit_profile"
-            android:title="@string/key_profile_edit">
-            <intent
-                android:action="@string/action_keyboard_pref"
-                android:key="void" />
-        </Preference>
+            android:title="@string/key_profile_edit" />
 
         <Preference
             android:key="pref_game_keyboard_select_input_method"

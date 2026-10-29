@@ -96,6 +96,9 @@ public class GeneralPreferenceActivity extends AppCompatPreferenceActivity {
             selectProfile.setValue("default");
         }
 
+        editProfile.setIntent(new Intent(context, KeyboardSettingsActivity.class)
+                .putExtra(KeyboardSettingsActivity.EXTRA_PROFILE_NAME, selectProfile.getValue()));
+
         selectProfile.setOnPreferenceChangeListener((preference, newValue) -> {
             if (newValue.equals(NEW_PROFILE)) {
                 Intent i = new Intent(context, KeyboardSettingsActivity.class);

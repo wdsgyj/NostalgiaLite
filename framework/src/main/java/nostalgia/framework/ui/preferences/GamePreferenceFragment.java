@@ -1,8 +1,10 @@
 package nostalgia.framework.ui.preferences;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
@@ -28,6 +30,11 @@ public class GamePreferenceFragment extends PreferenceFragment {
         PreferenceManager prefMgr = getPreferenceManager();
         prefMgr.setSharedPreferencesName(game.checksum + ".gamepref");
         addPreferencesFromResource(R.xml.game_preferences);
+        Preference generalSettings = findPreference("game_pref_general_settings");
+        generalSettings.setIntent(new Intent(getActivity(), GeneralPreferenceActivity.class)
+                .putExtra(PreferenceActivity.EXTRA_NO_HEADERS, true)
+                .putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT,
+                        GeneralPreferenceFragment.class.getName()));
         final ListPreference videoProfile = (ListPreference) findPreference("game_pref_ui_pal_ntsc_switch");
         final PreferenceCategory videoProfileCategory = (PreferenceCategory) findPreference("game_pref_ui_pal_ntsc_switch_category");
         final PreferenceCategory zapperCategory = (PreferenceCategory) findPreference("game_pref_other_category");
