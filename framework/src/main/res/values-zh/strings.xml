@@ -1,4 +1,5 @@
 <resources>
+    <string name="general_pref_rotation_desc">统一应用于首页、设置、游戏及布局编辑页；自动模式遵循系统旋转设置。</string>
     <string name="menu_settings">设置</string>
     <string name="cancel">取消</string>
     <string name="error">错误</string>
@@ -8,7 +9,7 @@
     <string name="pref_other_settings">其他设置</string>
     <string name="pref_screen_desc">定制布局和游戏界面</string>
     <string name="pref_screen_settings">游戏界面布局</string>
-    <string name="pref_touch_desc">定制按钮布局</string>
+    <string name="pref_touch_desc">定制按钮布局；在布局页菜单中调整双击存取档区域</string>
     <string name="pref_touch_settings">控制器布局</string>
     <string name="pref_video_settings">视频设置</string>
     <string name="general_pref_wifi_controlable">Wifi控制</string>
@@ -99,7 +100,13 @@
     <string name="press_key">请录入按键：%s</string>
     <string name="time_travel">回滚</string>
     <string name="general_pref_quick_save">快速保存/加载</string>
-    <string name="general_pref_quick_save_desc">双击快速保存（屏幕右半部分）或快速加载（屏幕左半部分）</string>
+    <string name="general_pref_quick_save_desc">默认右半屏双击存档、左半屏双击读档。可在“控制器布局 → 菜单”中调整作用区域。</string>
+    <string name="quick_regions_title">双击存取档区域</string>
+    <string name="quick_region_load">快速读取</string>
+    <string name="quick_region_save">快速保存</string>
+    <string name="quick_regions_done">完成</string>
+    <string name="quick_regions_reset">重置区域</string>
+    <string name="quick_regions_hint">拖动区域可定位，拖动右下角可调整宽高。\n横竖屏分别保存；启用“快速保存/加载”后生效。</string>
     <string name="pref_setting_layout">布局设置</string>
     <string name="pref_setting_display">显示设置</string>
     <string name="pref_setting_touch_ctrl">触摸控件设置</string>

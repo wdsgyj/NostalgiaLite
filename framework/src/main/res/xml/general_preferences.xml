@@ -53,6 +53,7 @@
             android:entries="@array/general_pref_rotation_list"
             android:entryValues="@array/general_pref_rotation_values"
             android:key="general_pref_rotation"
+            android:summary="@string/general_pref_rotation_desc"
             android:title="@string/general_pref_rotation" />
 
         <CheckBoxPreference

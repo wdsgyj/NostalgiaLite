@@ -1,5 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
+    <string name="general_pref_rotation_desc">Applies to all screens, including games and layout editors. Automatic follows the system rotation setting.</string>
     <string name="app_name">EmuDroid</string>
     <string name="empty_desc">this component has no textual description</string>
     <string name="menu_settings">Settings</string>
@@ -76,7 +77,7 @@
     <string name="pref_general_settings">General Settings</string>
     <string name="pref_video_settings">Video Settings</string>
     <string name="pref_touch_settings">Controller Layout</string>
-    <string name="pref_touch_desc">Customize layout of buttons</string>
+    <string name="pref_touch_desc">Customize buttons; open the layout menu to edit double-tap areas</string>
     <string name="pref_screen_settings">Game Screen Layout</string>
     <string name="pref_screen_desc">Customize layout of game screen</string>
     <string name="pref_keyboard_settings_restore_def">(Reset to defaults)</string>
@@ -129,7 +130,13 @@
     <string name="game_pref_ui_opacity_desc">Opacity of on-screen controls</string>
     <string name="game_pref_ui_auto_hide_desc">Hide on-screen controls when using gamepad/keyboard/remote controller</string>
     <string name="general_pref_quick_save">Quick Save/Load</string>
-    <string name="general_pref_quick_save_desc">Double tap to quick-save (right half of screen) or quick-load (left half of screen)</string>
+    <string name="general_pref_quick_save_desc">Double tap to save or load. Default: save on the right, load on the left. Adjust areas in Controller layout → menu.</string>
+    <string name="quick_regions_title">Double-tap save/load areas</string>
+    <string name="quick_region_load">Quick load</string>
+    <string name="quick_region_save">Quick save</string>
+    <string name="quick_regions_done">Done</string>
+    <string name="quick_regions_reset">Reset areas</string>
+    <string name="quick_regions_hint">Drag to move; drag the bottom-right corner to resize.\nPortrait and landscape are saved separately. Enable Quick Save/Load to use.</string>
     <string name="pref_setting_layout">Layout</string>
     <string name="pref_setting_display">Display Settings</string>
     <string name="pref_setting_touch_ctrl">Touch Controller Settings</string>

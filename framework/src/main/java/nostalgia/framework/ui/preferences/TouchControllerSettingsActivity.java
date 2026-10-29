@@ -3,7 +3,14 @@ package nostalgia.framework.ui.preferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.Gravity;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import nostalgia.framework.GfxProfile;
@@ -34,6 +41,8 @@ public class TouchControllerSettingsActivity extends AppCompatActivity implement
     DatabaseHelper dbHelper;
     Bitmap lastGameScreenshot;
     private GameMenu gameMenu;
+    private FrameLayout regionOverlay;
+    private QuickSaveRegionEditor regionEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +51,16 @@ public class TouchControllerSettingsActivity extends AppCompatActivity implement
         gameMenu = new GameMenu(this, this);
         mtLayer = findViewById(R.id.touch_layer);
         dbHelper = new DatabaseHelper(this);
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (regionOverlay != null) closeRegionEditor();
+                else finish();
+            }
+        });
+        if (savedInstanceState != null && savedInstanceState.getBoolean("editingQuickRegions")) {
+            showRegionEditor();
+        }
     }
 
     @Override
@@ -68,6 +87,7 @@ public class TouchControllerSettingsActivity extends AppCompatActivity implement
     protected void onPause() {
         super.onPause();
         mtLayer.saveEditElements();
+        if (regionEditor != null) regionEditor.save();
         mtLayer.stopEditMode();
 
         if (lastGameScreenshot != null) {
@@ -79,6 +99,7 @@ public class TouchControllerSettingsActivity extends AppCompatActivity implement
 
     @Override
     public void onGameMenuCreate(GameMenu menu) {
+        menu.add(R.string.quick_regions_title);
         menu.add(R.string.act_tcs_reset, R.drawable.ic_restart);
     }
 
@@ -96,7 +117,55 @@ public class TouchControllerSettingsActivity extends AppCompatActivity implement
 
     @Override
     public void onGameMenuItemSelected(GameMenu menu, GameMenuItem item) {
-        runOnUiThread(() -> mtLayer.resetEditElement(gameHash));
+        if (item.getId() == R.string.quick_regions_title) showRegionEditor();
+        else if (item.getId() == R.string.act_tcs_reset) mtLayer.resetEditElement(gameHash);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean("editingQuickRegions", regionOverlay != null);
+        super.onSaveInstanceState(outState);
+    }
+
+    private void showRegionEditor() {
+        if (regionOverlay != null) return;
+        regionOverlay = new FrameLayout(this);
+        regionEditor = new QuickSaveRegionEditor(this);
+        regionOverlay.addView(regionEditor, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        LinearLayout toolbar = new LinearLayout(this);
+        toolbar.setOrientation(LinearLayout.VERTICAL);
+        toolbar.setBackgroundColor(0xee182028);
+        LinearLayout actions = new LinearLayout(this);
+        actions.setGravity(Gravity.CENTER);
+        Button done = new Button(this);
+        done.setText(R.string.quick_regions_done);
+        done.setOnClickListener(v -> closeRegionEditor());
+        actions.addView(done);
+        Button reset = new Button(this);
+        reset.setText(R.string.quick_regions_reset);
+        reset.setOnClickListener(v -> regionEditor.reset());
+        actions.addView(reset);
+        toolbar.addView(actions);
+        TextView hint = new TextView(this);
+        hint.setText(R.string.quick_regions_hint);
+        hint.setTextColor(0xffffffff);
+        hint.setTextSize(12);
+        hint.setGravity(Gravity.CENTER);
+        toolbar.addView(hint);
+        regionOverlay.addView(toolbar, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,
+                Gravity.TOP | Gravity.CENTER_HORIZONTAL));
+        addContentView(regionOverlay, new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+    }
+
+    private void closeRegionEditor() {
+        regionEditor.save();
+        ((ViewGroup) regionOverlay.getParent()).removeView(regionOverlay);
+        regionEditor = null;
+        regionOverlay = null;
     }
 
     @Override
@@ -111,12 +180,12 @@ public class TouchControllerSettingsActivity extends AppCompatActivity implement
     }
 
     public void openGameMenu() {
-        gameMenu.open();
+        if (regionOverlay == null) gameMenu.open();
     }
 
     @Override
     public void openOptionsMenu() {
-        gameMenu.open();
+        openGameMenu();
     }
 
 }

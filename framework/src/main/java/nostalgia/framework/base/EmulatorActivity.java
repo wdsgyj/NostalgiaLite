@@ -365,17 +365,6 @@ public abstract class EmulatorActivity extends AppCompatActivity
         isToggleFF = PreferenceUtil.isFastForwardToggleable(this);
         isFF = false;
         isFFPressed = false;
-        switch (PreferenceUtil.getDisplayRotation(this)) {
-            case AUTO:
-                this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-                break;
-            case PORT:
-                this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                break;
-            case LAND:
-                this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                break;
-        }
         manager.setFastForwardFrameCount(PreferenceUtil.getFastForwardFrameCount(this));
         inputManager.updateDynamicDPadState(this);
         if (PreferenceUtil.isFastForwardEnabled(this)) {
